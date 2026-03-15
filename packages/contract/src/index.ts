@@ -62,6 +62,7 @@ export {
 
 // Entity Definitions (Four Tribes)
 export {
+  ENTITY_DEFINITIONS,
   ENTITY_DEFINITIONS as ENTITY_TYPE_DEFINITIONS_V2,
   PROFILEABLE_TYPES,
   SCOUTABLE_TYPES,

@@ -9,6 +9,8 @@
 
 import { describe, it, expect, beforeEach, afterEach, mock } from 'bun:test';
 import { initDB, closeDB, getDB } from '../src/db.js';
+import type { ExplorationIntent } from '../src/lib/agents/explorer/types.js';
+import { createGraphLink } from '../src/lib/graph-link/index.js';
 
 // Create mock functions
 const mockEvaluate = mock(() => Promise.resolve({
@@ -16,13 +18,6 @@ const mockEvaluate = mock(() => Promise.resolve({
     total: 35,
     reason: 'Very ironic situation',
     dimensions: { surprise: 8, ironyDepth: 9 }
-}));
-
-// Mock Irony Strategy
-mock.module('../src/lib/agents/explorer/strategies/irony.js', () => ({
-    ironyStrategy: {
-        evaluate: mockEvaluate,
-    }
 }));
 
 // Mock AI clients to prevent real API calls
@@ -43,16 +38,20 @@ mock.module('../src/lib/ai-clients.js', () => ({
     })
 }));
 
-// Import after mocks
-import { graphWriter } from '../src/lib/graph-link/index.js';
-import { ironyStrategy } from '../src/lib/agents/explorer/strategies/irony.js';
+const mockIronyStrategy = {
+    evaluate: (findings: any[], intent: ExplorationIntent) => mockEvaluate(findings, intent),
+};
 
 const TEST_DB_PATH = ':memory:';
 
 describe('Atoms: Irony Middleware', () => {
+    let graphWriter: ReturnType<typeof createGraphLink>['graphWriter'];
 
     beforeEach(() => {
         initDB(TEST_DB_PATH);
+        graphWriter = createGraphLink({
+            irony: { strategy: mockIronyStrategy },
+        }).graphWriter;
         // Reset mock to default high score
         mockEvaluate.mockImplementation(() => Promise.resolve({
             level: 3,
@@ -74,7 +73,7 @@ describe('Atoms: Irony Middleware', () => {
         const memoryId = await graphWriter.ingestFinding('http://irony.com', 'Fire Station Burns', content);
 
         // 3. Verify Strategy was called
-        expect(ironyStrategy.evaluate).toHaveBeenCalled();
+        expect(mockEvaluate).toHaveBeenCalled();
 
         // 4. Verify Irony Annotation in DB (specifically query for irony key)
         const db = getDB();
@@ -102,7 +101,7 @@ describe('Atoms: Irony Middleware', () => {
         const memoryId = await graphWriter.ingestFinding('http://boring.com', 'Sun Rise', content);
 
         // 3. Verify Strategy called
-        expect(ironyStrategy.evaluate).toHaveBeenCalled();
+        expect(mockEvaluate).toHaveBeenCalled();
 
         // 4. Verify NO Irony Annotation (other atoms may still create their annotations)
         const db = getDB();

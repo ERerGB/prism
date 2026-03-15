@@ -5,7 +5,15 @@ import type { GraphWriter } from '../writer.js';
 import { ironyStrategy } from '../../agents/explorer/strategies/irony.js';
 import { ExplorationIntent } from '../../agents/explorer/types.js';
 
-export function createIronyAtom(writer: GraphWriter): GraphMiddleware {
+export interface IronyAtomDeps {
+    strategy?: {
+        evaluate: typeof ironyStrategy.evaluate;
+    };
+}
+
+export function createIronyAtom(writer: GraphWriter, deps?: IronyAtomDeps): GraphMiddleware {
+    const strategy = deps?.strategy ?? ironyStrategy;
+
     return async (ctx, next) => {
         // 1. Let the operation complete first (Post-processing)
         await next();
@@ -41,7 +49,7 @@ export function createIronyAtom(writer: GraphWriter): GraphMiddleware {
                     source: 'search' as const,
                 };
 
-                const score = await ironyStrategy.evaluate([finding], pseudoIntent);
+                const score = await strategy.evaluate([finding], pseudoIntent);
 
                 if (score.level >= 2) {
                     // Structural Irony or higher

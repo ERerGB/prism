@@ -15,6 +15,8 @@ Now an independent monorepo serving as infrastructure for Skillet and other cons
 3. **TDD**: Write failing tests first, then implement, then refactor.
 4. **DRY**: Single authoritative representation for every piece of knowledge.
 5. **Separation of concerns**: Prism is a pure engine. Business logic belongs in consumers.
+6. **Discussion-first ADR flow**: Every ADR must include `> Discussion: [discussion log](xxx.discussion.md)`.
+7. **Governance gate**: Before handoff/merge, run `pnpm doc:governance` and keep it passing.
 
 ## Monorepo Structure
 
@@ -62,4 +64,6 @@ pnpm dev                  # Start server (port 3006)
 pnpm test                 # Run all tests
 pnpm build                # TypeScript build
 pnpm gen:index            # Regenerate doc indexes
+pnpm doc:check            # Validate ADR metadata + discussion links + index markers
+pnpm doc:governance       # gen:index + doc:check
 ```

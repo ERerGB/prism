@@ -166,8 +166,11 @@ export function onKeysConfigured(callback: KeysConfiguredCallback): void {
  * @since 2025-12
  */
 export function isProxyMode(): boolean {
-    // Ensure config is fresh before checking (TTL + mtime check)
-    ensureConfigFresh();
+    // Optional hot reload (disabled by default to avoid ambient HOME config pollution
+    // in tests/CLI environments that did not explicitly opt into shared config loading).
+    if (process.env.PRISM_SHARED_CONFIG_HOT_RELOAD === 'true') {
+        ensureConfigFresh();
+    }
     
     const token = _runtimeKeys.proxyToken || process.env.MAGPIE_PROXY_TOKEN;
     const url = _runtimeKeys.proxyUrl || process.env.MAGPIE_PROXY_URL;
@@ -185,8 +188,10 @@ export function isProxyMode(): boolean {
  * @since 2025-12
  */
 export function getProxyConfig(): { token: string; url: string } | null {
-    // Ensure config is fresh before reading (TTL + mtime check)
-    ensureConfigFresh();
+    // Optional hot reload (disabled by default, see isProxyMode()).
+    if (process.env.PRISM_SHARED_CONFIG_HOT_RELOAD === 'true') {
+        ensureConfigFresh();
+    }
     
     const token = _runtimeKeys.proxyToken || process.env.MAGPIE_PROXY_TOKEN;
     const url = _runtimeKeys.proxyUrl || process.env.MAGPIE_PROXY_URL;

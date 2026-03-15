@@ -6,7 +6,14 @@ settings:
 
 importers:
 
-  .: {}
+  .:
+    devDependencies:
+      '@erergb/doc-governance':
+        specifier: git+https://github.com/ERerGB/dev-doc-governance.git#f99536933a99d905ee43bab4cf76001ca2252ecd
+        version: git+https://github.com/ERerGB/dev-doc-governance.git#f99536933a99d905ee43bab4cf76001ca2252ecd
+      node:
+        specifier: '>=22'
+        version: 25.8.1
 
   apps/server:
     dependencies:
@@ -118,6 +125,12 @@ importers:
         version: 5.9.3
 
 packages:
+
+  '@erergb/doc-governance@git+https://github.com/ERerGB/dev-doc-governance.git#f99536933a99d905ee43bab4cf76001ca2252ecd':
+    resolution: {commit: f99536933a99d905ee43bab4cf76001ca2252ecd, repo: https://github.com/ERerGB/dev-doc-governance.git, type: git}
+    version: 0.1.0
+    engines: {node: '>=20'}
+    hasBin: true
 
   '@esbuild/aix-ppc64@0.21.5':
     resolution: {integrity: sha512-1SDgH6ZSPTlggy1yI6+Dbkiz8xzpHJEVAlF/AM1tHPLsf5STom9rwtjE4hKAF20FfXXNTFqEYXyJNWh1GiZedQ==}
@@ -1335,6 +1348,9 @@ packages:
     resolution: {integrity: sha512-At6b4UqIEVudaqPsXjmUO1r/N5BUr4yhDGs5PkBE8/oG5+TfLPhFechiskFsnT6Ql0VfUXbalUUCbfXxtj7K+w==}
     engines: {node: '>=10'}
 
+  node-bin-setup@1.1.4:
+    resolution: {integrity: sha512-vWNHOne0ZUavArqPP5LJta50+S8R261Fr5SvGul37HbEDcowvLjwdvd0ZeSr0r2lTSrPxl6okq9QUw8BFGiAxA==}
+
   node-domexception@1.0.0:
     resolution: {integrity: sha512-/jKZoMpw0F8GRwl4/eLROPA3cfcXtLApP0QzLmUT/HuPCZWyB7IY9ZrMeKw2O/nFIqPQB3PVM9aYm0F312AXDQ==}
     engines: {node: '>=10.5.0'}
@@ -1348,6 +1364,11 @@ packages:
     peerDependenciesMeta:
       encoding:
         optional: true
+
+  node@25.8.1:
+    resolution: {integrity: sha512-AG1iDDN7Uzku6rFQTjfrqZZRjur8YPkO73PnfDfoj5348DQmFACA8D4X8EhvO8ObIntENK5e/aVviy+sFsAbOA==}
+    engines: {npm: '>=5.0.0'}
+    hasBin: true
 
   nodemailer@8.0.2:
     resolution: {integrity: sha512-zbj002pZAIkWQFxyAaqoxvn+zoIwRnS40hgjqTXudKOOJkiFFgBeNqjgD3/YCR12sZnrghWYBY+yP1ZucdDRpw==}
@@ -1810,6 +1831,8 @@ packages:
     resolution: {integrity: sha512-rftlrkhHZOcjDwkGlnUtZZkvaPHCsDATp4pGpuOOMDaTdDDXF91wuVDJoWoPsKX/3YPQ5fHuF3STjcYyKr+Qhg==}
 
 snapshots:
+
+  '@erergb/doc-governance@git+https://github.com/ERerGB/dev-doc-governance.git#f99536933a99d905ee43bab4cf76001ca2252ecd': {}
 
   '@esbuild/aix-ppc64@0.21.5':
     optional: true
@@ -2884,11 +2907,17 @@ snapshots:
     dependencies:
       semver: 7.7.4
 
+  node-bin-setup@1.1.4: {}
+
   node-domexception@1.0.0: {}
 
   node-fetch@2.7.0:
     dependencies:
       whatwg-url: 5.0.0
+
+  node@25.8.1:
+    dependencies:
+      node-bin-setup: 1.1.4
 
   nodemailer@8.0.2: {}
 

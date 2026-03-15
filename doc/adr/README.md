@@ -4,7 +4,7 @@
 
 <!-- INDEX:START -->
 | ADR | Title | Status | Date |
-|-----|-------|--------|------|
+| --- | --- | --- | --- |
 <!-- INDEX:END -->
 
 ## Template
@@ -14,6 +14,8 @@
 
 Status: Proposed
 Date: YYYY-MM-DD
+
+> Discussion: [discussion log](NNN-topic.discussion.md)
 
 ## Context
 ## Decision

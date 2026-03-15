@@ -1613,6 +1613,15 @@ export function build() {
   }>('/api/scout/profile', async (request, reply) => {
     const { entity, context } = request.body;
 
+    // Validate request first so malformed payloads return 400 consistently,
+    // regardless of whether AI keys are configured.
+    if (!entity) {
+      return reply.code(400).send({
+        error: 'Missing entity',
+        details: 'Please provide an entity name'
+      });
+    }
+
     // Check for API key (Degraded Mode protection)
     try {
       ensureApiKey('OPENAI');
@@ -1620,13 +1629,6 @@ export function build() {
       return reply.code(401).send({
         error: 'Authentication required',
         details: 'The field is dormant. Please awaken it to scout entities.'
-      });
-    }
-
-    if (!entity) {
-      return reply.code(400).send({
-        error: 'Missing entity',
-        details: 'Please provide an entity name'
       });
     }
 
@@ -1833,6 +1835,15 @@ export function build() {
   }>('/explore', async (request, reply) => {
     const { word, strategy } = request.body;
 
+    // Validate request first so malformed payloads return 400 consistently,
+    // regardless of whether AI keys are configured.
+    if (!word || word.trim().length === 0) {
+      return reply.code(400).send({
+        error: 'Missing word',
+        details: 'Please provide a word to explore'
+      });
+    }
+
     // Check for API key (Degraded Mode protection)
     try {
       ensureApiKey('OPENAI');
@@ -1840,13 +1851,6 @@ export function build() {
       return reply.code(401).send({
         error: 'Authentication required',
         details: 'The field is dormant. Please awaken it to explore.'
-      });
-    }
-
-    if (!word || word.trim().length === 0) {
-      return reply.code(400).send({
-        error: 'Missing word',
-        details: 'Please provide a word to explore'
       });
     }
 
