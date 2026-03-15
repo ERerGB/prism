@@ -54,7 +54,7 @@ Prism participates in a feedback loop with SkillRank:
 - **Input**: `POST /ingest { priorWeight, priorSource }` — hub quality as prior weight
 - V1: store without using. V2: integrate into entity ranking.
 
-@see [Skillet ADR-002](https://github.com/ERerGB/skillet/blob/main/doc/adr/002-bidirectional-feedback-contract.md)
+@decision skillet:002
 
 ## Build & Dev
 

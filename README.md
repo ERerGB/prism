@@ -57,7 +57,7 @@ pnpm test       # Run tests
 
 ## Origin
 
-Extracted from the [Fulmail](https://github.com/ERerGB/fulmail) monorepo
+Extracted from the [Fulmail](https://github.com/the-mag-tech/fulmail) monorepo
 (`apps/prism-server/`, `packages/prism-contract/`, `packages/prism-client/`).
 See `doc/adr/` for extraction rationale.
 

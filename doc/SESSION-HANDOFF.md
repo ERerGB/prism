@@ -6,7 +6,7 @@
 ## 1. Current State
 
 ### Repo
-- **Location**: `/Users/j.z/code/prism` / `github.com/ERerGB/prism`
+- **Location**: `/Users/j.z/code/prism` / `github.com/the-mag-tech/prism`
 - **Branch**: `main` (single commit: `e327cda`)
 - **Origin**: Extracted from `fulmail/apps/prism-server` + `packages/prism-contract` + `packages/prism-client`
 
@@ -75,8 +75,8 @@ Key changes needed:
 - Signal types: `citation_density`, `contributor_reputation`, `content_quality`, `skill_freshness`, `cross_hub_reference`
 
 ### Contract spec
-- Full spec: `github.com/ERerGB/skillet/doc/adr/002-bidirectional-feedback-contract.md`
-- Also documented in: `github.com/ERerGB/fulmail/docs/adr/001-prism-extraction-to-independent-repo.md`
+- Full spec: `@decision skillet:002`
+- Also documented in: `@decision fulmail:001`
 
 ## 4. Related Repos
 
